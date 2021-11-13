@@ -6,6 +6,9 @@ const Stratford = require("./data/Stratford.json");
 app.get("/pharmacies", (request, response) => {
   response.send(Stratford.pharmacies);
 });
+app.get("/colleges", (request, response) => {
+  response.send(Stratford.colleges);
+});
 app.listen(PORT, () => {
   console.log("server is running on PORT :" + PORT);
 });
