@@ -12,6 +12,9 @@ app.get("/colleges", (request, response) => {
 app.get("/doctors", (request, response) => {
   response.send(Stratford.doctors);
 });
+app.get("/hospitals	", (request, response) => {
+  response.send(Stratford.hospitals);
+});
 
 app.listen(PORT, () => {
   console.log("server is running on PORT :" + PORT);
