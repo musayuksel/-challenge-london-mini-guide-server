@@ -1,8 +1,15 @@
+const { response } = require("express");
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const fs = require("fs");
+const { request } = require("http");
 
+app.get("/", (request, response) => {
+  response.send({
+    msg: "ask me with /cityName/categoryName",
+  });
+});
 app.get("/:city/:category", (request, response) => {
   const city = request.params.city;
   const category = request.params.category;
