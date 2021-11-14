@@ -1,27 +1,27 @@
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
+const fs = require("fs");
 
-app.get("/:city/:catog", (request, response) => {
+app.get("/:city/:category", (request, response) => {
   const city = request.params.city;
-  const catog = request.params.catog;
-  const dataCity = require(`./data/${city}.json`);
-  if (catog in dataCity) {
-    response.send(dataCity[catog]);
+  const category = request.params.category;
+  const cityPath = `./data/${city}.json`;
+  if (fs.existsSync(cityPath)) {
+    const cityData = require(cityPath);
+    if (cityData[category]) {
+      response.send(cityData[category]);
+    } else {
+      response.status(404).send({
+        msg: `Category:'${category}' DOES NOT exist in the server`,
+      });
+    }
   } else {
-    response.sendStatus(404);
+    response.status(404).send({
+      msg: `City:'${city}' DOES NOT exist in the server`,
+    });
   }
 });
-// app.get("/:city/colleges", (request, response) => {
-//   cit
-//   response.send(Stratford.colleges);
-// });
-// app.get("/doctors", (request, response) => {
-//   response.send(Stratford.doctors);
-// });
-// app.get("/hospitals	", (request, response) => {
-//   response.send(Stratford.hospitals);
-// });
 
 app.listen(PORT, () => {
   console.log("server is running on PORT :" + PORT);
